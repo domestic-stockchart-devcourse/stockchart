@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Article(models.Model):
-    headline = models.CharField(max_length=200)
-    crawling_time = models.DateTimeField()
+    headline = models.CharField(max_length=200, default='')
+    article_url = models.CharField(max_length=300, default="https://finance.naver.com")
 
     def __str__(self):
         return self.headline
