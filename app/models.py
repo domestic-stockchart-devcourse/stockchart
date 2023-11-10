@@ -12,7 +12,6 @@ class Article(models.Model):
 class StockPrice(models.Model):
     stock_name = models.CharField(max_length=100)
     date = models.DateField()
-    time = models.TimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):

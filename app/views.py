@@ -23,7 +23,7 @@ class StockPricesView(APIView):
         stock_name = request.query_params.get('stock_name', None)
 
         if stock_name is not None:
-            stock_prices = StockPrice.objects.filter(stock_name=stock_name).order_by('-date', '-time')[:6]
+            stock_prices = StockPrice.objects.filter(stock_name=stock_name).order_by('-date')[:6]
         else:
             stock_prices = StockPrice.objects.none()
 
