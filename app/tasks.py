@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import time
 import urllib.parse
 from .models import Article
+from django.utils import timezone
 
 @background(schedule=60*10)
 def crawl_news():
@@ -25,8 +26,7 @@ def crawl_news():
             for title in titles:
                 full_url = urllib.parse.urljoin(base_url, title["href"])
                 news_data[title.text.strip()] = full_url
-
-                new_object = Article.objects.create(headline=title.text.strip(), article_url=full_url)
+                new_object = Article.objects.create(headline=title.text.strip(), article_url=full_url, crawling_time=timezone.now())
 
             time.sleep(0.5)
         
