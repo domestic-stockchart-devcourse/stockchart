@@ -13,7 +13,7 @@ def crawl_news():
     pass
 
 
-@background(schedule=60*100)
+@background(schedule=60*10)
 def crawl_chart():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.maximize_window()
@@ -58,7 +58,8 @@ def crawl_chart():
             percent_change=row['등락률'],  
             volume=row['거래량'], 
             prev_volume=row['전일거래량'], 
-            market_cap=row['시가총액']  
+            market_cap=row['시가총액']
         )
+        
     
     driver.quit()

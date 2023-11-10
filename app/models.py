@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Article(models.Model):
@@ -28,6 +29,7 @@ class TradingVolume(models.Model):
     volume = models.BigIntegerField(verbose_name='거래량', default=0)
     prev_volume = models.BigIntegerField(verbose_name='전일거래량', default=0)
     market_cap = models.IntegerField(verbose_name='시가총액', default=0)
+    created_at = models.DateTimeField(verbose_name='시간', auto_now_add = True)
 
     
     def __str__(self) :
