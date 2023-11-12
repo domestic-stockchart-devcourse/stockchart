@@ -13,11 +13,11 @@ class Article(models.Model):
 
 class StockPrice(models.Model):
     stock_name = models.CharField(max_length=100)
-    date = models.DateField()
+    date = models.DateField(auto_now_add = True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.stock_name} - {self.date} {self.time}"
+        return f"{self.stock_name} - {self.date}"
 
 
 class TradingVolume(models.Model):
