@@ -123,8 +123,8 @@ def crawl_price() :
     for row in rows:
         tds = row.find_all("td")
         if len(tds) > 1:  # 데이터가 있는 행만 처리
-            name = tds[0].get_text(strip=True)  # 종목명
-            current_price = tds[1].get_text(strip=True)  # 현재가
+            name = tds[1].get_text(strip=True)
+            current_price = tds[2].get_text(strip=True) 
             
             if len(top_stocks) < 3:
                 top_stocks.append((name, current_price))
@@ -134,9 +134,6 @@ def crawl_price() :
     # db에 데이터 생성        
     for stock in top_stocks:
         stock_name, current_price = stock
-
-        # 현재가를 Decimal로 변환, 콤마 제거
-        current_price = Decimal(current_price.replace(',', ''))
 
         StockPrice.objects.create(
             stock_name=stock_name,
