@@ -11,7 +11,8 @@ class ArticleSerializer(serializers.ModelSerializer):
 class TradingVolumeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TradingVolume
-        fields = ['name', 'current_price', 'price_change', 'percent_change', 'time']
+        fields = ['rank', 'stock_name', 'current_price', 'price_change', 'percent_change', 'volume',
+                  'prev_volume', 'market_cap', 'created_at']
 
 
 class StockPriceSerializer(serializers.ModelSerializer):

@@ -22,7 +22,7 @@ class StockPrice(models.Model):
 
 class TradingVolume(models.Model):
     rank = models.IntegerField(verbose_name='순위', default=0)
-    name = models.CharField(max_length=100, verbose_name='종목명', default='없음')
+    stock_name = models.CharField(max_length=100, verbose_name='종목명', default='없음')
     current_price = models.IntegerField(verbose_name='현재가', default=0)
     price_change = models.IntegerField(verbose_name='전일비', default=0)
     percent_change = models.CharField(max_length=100, verbose_name='등락률', default='0%')

@@ -90,7 +90,7 @@ def crawl_chart():
     for index, row in highest_volume_df.iterrows():
         TradingVolume.objects.create(
             rank=row['N'],  
-            name=row['종목명'],  
+            stock_name=row['종목명'],
             current_price=row['현재가'],  
             price_change=row['전일비'],  
             percent_change=row['등락률'],  

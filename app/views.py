@@ -13,7 +13,7 @@ class LatestArticlesView(APIView):
 
 class LatestTradingVolumesView(APIView):
     def get(self, request):
-        latest_volumes = TradingVolume.objects.order_by('-time')[:6]
+        latest_volumes = TradingVolume.objects.order_by('-created_at')[:6]
         serializer = TradingVolumeSerializer(latest_volumes, many=True)
         return Response(serializer.data)
 
