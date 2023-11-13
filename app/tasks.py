@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import os
+from selenium.webdriver.chrome.options import Options
 
 import requests
 from bs4 import BeautifulSoup
@@ -13,6 +14,7 @@ import time
 import urllib.parse
 from .models import Article
 from django.utils import timezone
+from decimal import Decimal
 
 @background(schedule=10)
 def crawl_news():
@@ -53,7 +55,12 @@ def crawl_news():
 
 @background(schedule=60*10)
 def crawl_chart():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    # chrome 안열고 실행
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=(chrome_options))
     driver.maximize_window()
     
     # 1. 페이지 이동
@@ -101,3 +108,34 @@ def crawl_chart():
         
     
     driver.quit()
+
+@background(schedule=10)
+def crawl_price() :
+    url = 'https://finance.naver.com/sise/sise_market_sum.naver'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    table = soup.find("table", class_="type_2")
+    rows = table.find_all("tr")
+
+    top_stocks = []
+
+    for row in rows:
+        tds = row.find_all("td")
+        if len(tds) > 1:  # 데이터가 있는 행만 처리
+            name = tds[1].get_text(strip=True)
+            current_price = tds[2].get_text(strip=True) 
+            
+            if len(top_stocks) < 3:
+                top_stocks.append((name, current_price))
+            else:
+                break
+
+    # db에 데이터 생성        
+    for stock in top_stocks:
+        stock_name, current_price = stock
+
+        StockPrice.objects.create(
+            stock_name=stock_name,
+            price=current_price
+        )

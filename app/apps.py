@@ -6,6 +6,7 @@ class AppConfig(AppConfig):
     name = 'app'
 
     def ready(self):
-        from .tasks import crawl_news, crawl_chart
+        from .tasks import crawl_news, crawl_chart, crawl_price
         crawl_news()
         crawl_chart()
+        crawl_price()
