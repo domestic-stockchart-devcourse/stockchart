@@ -80,61 +80,15 @@
           <div class="table-full-width table-responsive">
             <table class="table">
               <tbody>
+                {% for item in article_list %}
                 <tr>
                   <td></td>
                   <td>
-                    <p class="title">Update the Documentation</p>
-                    <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
+                    <p class="title">{{ item.headline }}</p>
+                    <p class="text-muted">{{ item.article_url }}</p>
                   </td>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <p class="title">GDPR Compliance</p>
-                    <p class="text-muted">
-                      The GDPR is a regulation that requires businesses to
-                      protect the personal data and privacy of Europe citizens
-                      for transactions that occur within EU member states.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <p class="title">Solve the issues</p>
-                    <p class="text-muted">
-                      Fifty percent of all respondents said they would be more
-                      likely to shop at a company
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <p class="title">Release v2.0.0</p>
-                    <p class="text-muted">
-                      Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <p class="title">Export the processed files</p>
-                    <p class="text-muted">
-                      The report also shows that consumers will not easily
-                      forgive a company once a breach exposing their personal
-                      data occurs.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <p class="title">Arival at export process</p>
-                    <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
-                  </td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

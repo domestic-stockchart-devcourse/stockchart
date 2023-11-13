@@ -1,16 +1,15 @@
 // 메인 시총 1위 차트
 var ctx = document.getElementById("chartBig1").getContext("2d");
-
 var data = {
-  labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+  labels: [], // 서버에서 가져온 날짜 데이터로 업데이트
   datasets: [
     {
-      label: "Data",
+      label: "Stock Price",
       fill: true,
       backgroundColor: "rgba(72,72,176,0.2)",
       borderColor: "#d048b6",
       borderWidth: 2,
-      data: [800, 100, 70, 80, 120, 80],
+      data: [], // 서버에서 가져온 주식 가격 데이터로 업데이트
     },
   ],
 };
@@ -37,6 +36,21 @@ var chart = new Chart(ctx, {
   data: data,
   options: options,
 });
+
+// 데이터 가져오기 및 그래프 업데이트
+function updateChart() {
+  $.get("/get_stock_prices/", function (data) {
+    chart.data.labels = data.labels;
+    chart.data.datasets[0].data = data.data;
+    chart.update();
+  });
+}
+
+// 초기 그래프 업데이트
+updateChart();
+
+// 주기적으로 그래프 업데이트
+setInterval(updateChart, 6000); // 예: 60초마다 업데이트
 
 // 시총 2위 차트
 var ctx = document.getElementById("chartLinePurple").getContext("2d");
