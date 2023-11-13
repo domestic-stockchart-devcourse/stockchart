@@ -6,7 +6,7 @@ from app.views import LatestArticlesView, LatestTradingVolumesView, StockPricesV
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("apps.home.urls")),
-    path('latest-articles/', LatestArticlesView.as_view(), name='latest-articles'),
-    path('latest-trading-volumes/', LatestTradingVolumesView.as_view(), name='latest-trading-volumes'),
-    path('stock-prices/', StockPricesView.as_view(), name='stock-prices'),
+    path('api/latest-articles/', LatestArticlesView.as_view(), name='latest-articles'),
+    path('api/latest-trading-volumes/', LatestTradingVolumesView.as_view(), name='latest-trading-volumes'),
+    path('api/stock-prices/', StockPricesView.as_view(), name='stock-prices'),
 ]

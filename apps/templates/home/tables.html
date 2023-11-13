@@ -15,9 +15,17 @@
             <table class="table tablesorter" id="">
               <tbody>
                 <tr>
-                  <td>기사 제목</td>
-                  <td>기사 내용</td>
+                  <th>기사 제목</th>
+                  <th>기사 내용</th>
                 </tr>
+                {% for item in article_list %}
+                <tr>
+                  <td>
+                    <p class="title">{{ item.headline }}</p>
+                    <p class="text-muted">{{ item.article_url }}</p>
+                  </td>
+                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
