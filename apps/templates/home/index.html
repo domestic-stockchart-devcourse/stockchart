@@ -10,14 +10,13 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-6 text-left">
-              <h5 class="card-category">시가총액 1위 가격변동</h5>
-              <h2 class="card-title">삼성전자</h2>
+              <h2 class="card-title">거래량 TOP 6</h2>
             </div>
           </div>
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="chartBig1"></canvas>
+            <canvas id="Top_six"></canvas>
           </div>
         </div>
       </div>
@@ -34,7 +33,7 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="chartLinePurple"></canvas>
+            <canvas id="chart2"></canvas>
           </div>
         </div>
       </div>
@@ -42,14 +41,14 @@
     <div class="col-lg-4">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">현재 Hot 종목</h5>
+          <h5 class="card-category">시가총액 1위 가격변동</h5>
           <h3 class="card-title">
-            <i class="tim-icons icon-delivery-fast text-info"></i>거래량 Top 6
+            <i class="tim-icons icon-delivery-fast text-info"></i>삼성전자
           </h3>
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="Top_six"></canvas>
+            <canvas id="chart1"></canvas>
           </div>
         </div>
       </div>
@@ -64,7 +63,7 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="chartLineGreen"></canvas>
+            <canvas id="chart4"></canvas>
           </div>
         </div>
       </div>
@@ -76,19 +75,56 @@
         <div class="card-header">
           <h6 class="title d-inline">이시각 주요 뉴스</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="data-display">
           <div class="table-full-width table-responsive">
             <table class="table">
               <tbody>
-                {% for item in article_list %}
                 <tr>
                   <td></td>
                   <td>
-                    <p class="title">{{ item.headline }}</p>
-                    <p class="text-muted">{{ item.article_url }}</p>
+                    <p class="title">
+                      동국제강, 지주사 전환 마무리단계…신사업 진출로
+                      성장가도[스타즈IR]
+                    </p>
+                    <p class="text-muted">
+                      https://finance.naver.com/news/news_read.naver?article_id=0004260411&office_id=011&mode=mainnews&type=&date=2023-11-12&page=1
+                    </p>
                   </td>
                 </tr>
-                {% endfor %}
+                <tr>
+                  <td></td>
+                  <td>
+                    <p class="title">
+                      내일도 추워요, 출근길 영하권…수능일 전국 비[날씨]
+                    </p>
+                    <p class="text-muted">
+                      https://finance.naver.com/news/news_read.naver?article_id=0001780219&office_id=057&mode=mainnews&type=&date=2023-11-12&page=1
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <p class="title">
+                      소비자가 찾지 않은 금융자산 18조…'깜박한 내 돈' 찾는 법
+                    </p>
+                    <p class="text-muted">
+                      https://finance.naver.com/news/news_read.naver?article_id=0001780216&office_id=057&mode=mainnews&type=&date=2023-11-12&page=1
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <p class="title">
+                      "지하철 안 탈 수도 없고"…대중교통 요금 상승률 16년 만에
+                      최고
+                    </p>
+                    <p class="text-muted">
+                      https://finance.naver.com/news/news_read.naver?article_id=0001780215&office_id=057&mode=mainnews&type=&date=2023-11-12&page=1
+                    </p>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -107,52 +143,46 @@
                 <tr>
                   <th>종목 명</th>
                   <th>현재 가격</th>
-                  <th>전일 종가</th>
+                  <th>거래량</th>
                   <th class="text-center">상승율</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Dakota Rice</td>
-                  <td>Niger</td>
-                  <td>Oud-Turnhout</td>
-                  <td class="text-center">$36,738</td>
+                  <td>KODEX 200선물인버스2X</td>
+                  <td>2745</td>
+                  <td>100419925</td>
+                  <td class="text-center">+1.10%</td>
                 </tr>
                 <tr>
-                  <td>Minerva Hooper</td>
-                  <td>Curaçao</td>
-                  <td>Sinaai-Waas</td>
-                  <td class="text-center">$23,789</td>
+                  <td>KODEX 코스닥150선물인버스</td>
+                  <td>4005</td>
+                  <td>53936758</td>
+                  <td class="text-center">+2.17%</td>
                 </tr>
                 <tr>
-                  <td>Sage Rodriguez</td>
-                  <td>Netherlands</td>
-                  <td>Baileux</td>
-                  <td class="text-center">$56,142</td>
+                  <td>KODEX 코스닥150레버리지</td>
+                  <td>9260</td>
+                  <td>32107786</td>
+                  <td class="text-center">-4.04%</td>
                 </tr>
                 <tr>
-                  <td>Philip Chaney</td>
-                  <td>Korea, South</td>
-                  <td>Overland Park</td>
-                  <td class="text-center">$38,735</td>
+                  <td>대유플러스</td>
+                  <td>427</td>
+                  <td>17146523</td>
+                  <td class="text-center">-10.67%</td>
                 </tr>
                 <tr>
-                  <td>Doris Greene</td>
-                  <td>Malawi</td>
-                  <td>Feldkirchen in Kärnten</td>
-                  <td class="text-center">$63,542</td>
+                  <td>경농</td>
+                  <td>13350</td>
+                  <td>16095592</td>
+                  <td class="text-center">+0.07%</td>
                 </tr>
                 <tr>
-                  <td>Mason Porter</td>
-                  <td>Chile</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$78,615</td>
-                </tr>
-                <tr>
-                  <td>Jon Porter</td>
-                  <td>Portugal</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$98,615</td>
+                  <td>삼성 인버스 2X WTI원유 선물 ETN</td>
+                  <td>105</td>
+                  <td>15950975</td>
+                  <td class="text-center">-4.55%</td>
                 </tr>
               </tbody>
             </table>
@@ -166,13 +196,4 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
-
-<script>
-  $(document).ready(function () {
-    // Javascript method's body can be found in assets/js/demos.js
-    demo.initDashboardPageCharts();
-  });
-</script>
-
-{% endblock javascripts %}
+{% block javascripts %} {% endblock javascripts %}

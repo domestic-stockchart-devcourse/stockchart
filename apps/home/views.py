@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+import requests
+from app.models import Article, TradingVolume, StockPrice
+from app.serializers import *
 # Create your views here.
 
 # -*- encoding: utf-8 -*-
@@ -47,16 +50,19 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-def get_stock_price_data(request):
-    stock_name = "삼성전자"  # 원하는 주식명으로 수정
-    stock_prices = StockPrice.objects.filter(stock_name=stock_name).order_by('date')
-    labels = [str(price.date) for price in stock_prices]
-    data = [float(price.price) for price in stock_prices]
-    chart_data = {'labels': labels, 'data': data}
-    return JsonResponse(chart_data)
+class StockPricesView(APIView):
+    def get(self, request):
+        stock_name = request.query_params.get('stock_name', None)
 
-def article_list(request):
-    articles = Article.objects.all()[:10]  # Article 모델에서 모든 레코드를 가져옴
-    context = {'article_list': articles}
-    return render(request, 'index.html', context)
+        if stock_name is not None:
+            # stock_name을 기반으로 StockPrice 데이터를 필터링하여 가져옴
+            stock_prices = StockPrice.objects.filter(stock_name=stock_name).order_by('-date')[:6]
+            # 필요한 데이터를 시리얼라이즈하여 JSON 응답 생성
+            serializer = StockPriceSerializer(stock_prices, many=True)
+            return Response(serializer.data)
+        else:
+            # stock_name이 제공되지 않은 경우에 대한 처리
+            return Response({"error": "stock_name을 제공하세요."}, status=400)

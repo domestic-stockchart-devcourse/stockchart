@@ -1,181 +1,148 @@
-// 메인 시총 1위 차트
-var ctx = document.getElementById("chartBig1").getContext("2d");
-var data = {
-  labels: [], // 서버에서 가져온 날짜 데이터로 업데이트
-  datasets: [
-    {
-      label: "Stock Price",
-      fill: true,
-      backgroundColor: "rgba(72,72,176,0.2)",
-      borderColor: "#d048b6",
-      borderWidth: 2,
-      data: [], // 서버에서 가져온 주식 가격 데이터로 업데이트
+// 함수 정의
+function createChart(ctx, labels, data, backgroundColor, borderColor) {
+  return new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Data",
+          fill: true,
+          backgroundColor: backgroundColor,
+          borderColor: borderColor,
+          borderWidth: 2,
+          data: data,
+        },
+      ],
     },
-  ],
-};
-
-var options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      grid: {
-        display: false,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          grid: {
+            display: false,
+          },
+        },
       },
     },
-    y: {
-      grid: {
-        display: false,
-      },
-    },
-  },
-};
-
-var chart = new Chart(ctx, {
-  type: "line",
-  data: data,
-  options: options,
-});
-
-// 데이터 가져오기 및 그래프 업데이트
-function updateChart() {
-  $.get("/get_stock_prices/", function (data) {
-    chart.data.labels = data.labels;
-    chart.data.datasets[0].data = data.data;
-    chart.update();
   });
 }
+var chart1 = createChart(
+  document.getElementById("chart1").getContext("2d"),
+  [
+    "start",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+  ], // 초기 라벨
+  [70400, 70500, 70500, 70500, 70500, 70600], // 초기 데이터
+  "rgba(72,72,176,0.2)",
+  "#d048b6"
+);
+var chart2 = createChart(
+  document.getElementById("chart2").getContext("2d"),
+  [
+    "start",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+  ], // 초기 라벨
+  [414500, 414500, 414500, 414000, 414000, 415500], // 초기 데이터
+  "rgba(72,72,176,0.2)",
+  "#d048b6"
+);
+var chart4 = createChart(
+  document.getElementById("chart4").getContext("2d"),
+  [
+    "start",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+    "2023-11-13",
+  ], // 초기 라벨
+  [131400, 131500, 131500, 131600, 131600, 131600], // 초기 데이터
+  "rgba(72,72,176,0.2)",
+  "#d048b6"
+);
 
-// 초기 그래프 업데이트
-updateChart();
-
-// 주기적으로 그래프 업데이트
-setInterval(updateChart, 6000); // 예: 60초마다 업데이트
-
-// 시총 2위 차트
-var ctx = document.getElementById("chartLinePurple").getContext("2d");
-
-var data = {
-  labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-  datasets: [
-    {
-      label: "Data",
-      fill: true,
-      backgroundColor: "rgba(72,72,176,0.2)",
-      borderColor: "#d048b6",
-      borderWidth: 2,
-      data: [800, 100, 70, 80, 120, 80],
+// 함수 정의
+function createbarChart(ctx, labels, data, backgroundColor, borderColor) {
+  return new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Data",
+          fill: true,
+          backgroundColor: backgroundColor,
+          borderColor: borderColor,
+          borderWidth: 2,
+          data: data,
+        },
+      ],
     },
-  ],
-};
-
-var options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      grid: {
-        display: false,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          grid: {
+            display: false,
+          },
+        },
       },
     },
-    y: {
-      grid: {
-        display: false,
-      },
-    },
-  },
-};
+  });
+}
+var chart3 = createbarChart(
+  document.getElementById("Top_six").getContext("2d"),
+  [
+    "200선물인버스2X",
+    "코스닥150선물인버스",
+    "코스닥150레버리지",
+    "대유플러스",
+    "경농",
+    "2X WTI원유 선물",
+  ], // 초기 라벨
+  [100419925, 53936758, 32107786, 17146523, 16095592, 15950975], // 초기 데이터
+  "rgba(72,72,176,0.2)",
+  "#d048b6"
+);
 
-var chart = new Chart(ctx, {
-  type: "line",
-  data: data,
-  options: options,
-});
+// mychart.js
 
-// 거래량 TOP 6 차트
-var ctx = document.getElementById("Top_six").getContext("2d");
+function updateChartData() {
+  fetch("api/stock-prices/?stock_name=삼성전자")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data); // 데이터 콘솔에 출력
+      // 나머지 데이터 업데이트 코드
+      chart.data.labels = data.labels;
+      chart.data.datasets[0].data = data.data;
+      chart.update();
+    })
+    .catch((error) => console.error("데이터 업데이트 실패:", error));
+}
 
-var data = {
-  labels: ["주식1", "주식2", "주식3", "주식4", "주식5", "주식6"],
-  datasets: [
-    {
-      label: "Data",
-      fill: true,
-      backgroundColor: "rgba(72,72,176,0.2)",
-      borderColor: "#1f8ef1",
-      borderWidth: 2,
-      borderDash: [],
-      borderDashOffset: 0.0,
-      data: [800, 100, 60, 70, 2, 9],
-    },
-  ],
-};
+// 초기 데이터 가져오기
+updateChartData();
 
-var options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      grid: {
-        display: false,
-      },
-    },
-  },
-};
-
-var chart = new Chart(ctx, {
-  type: "bar",
-  data: data,
-  options: options,
-});
-
-// 시총 3위 차트
-var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
-
-var data = {
-  labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
-  datasets: [
-    {
-      fill: true,
-      backgroundColor: "rgba(66,134,121,0.15)",
-      borderColor: "#00d6b4",
-      borderWidth: 2,
-      borderDash: [],
-      borderDashOffset: 0.0,
-      pointBackgroundColor: "#00d6b4",
-      pointBorderColor: "rgba(255,255,255,0)",
-      pointHoverBackgroundColor: "#00d6b4",
-      pointBorderWidth: 20,
-      pointHoverRadius: 4,
-      pointHoverBorderWidth: 15,
-      pointRadius: 4,
-      data: [90, 27, 60, 12, 80],
-    },
-  ],
-};
-var options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      grid: {
-        display: false,
-      },
-    },
-  },
-};
-var myChart = new Chart(ctxGreen, {
-  type: "line",
-  data: data,
-  options: options,
-});
+// 일정한 주기로 데이터 업데이트
+setInterval(updateChartData, 6000); // 60초마다 업데이트 (원하는 주기로 변경 가능)
